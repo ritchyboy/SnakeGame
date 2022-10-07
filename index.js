@@ -52,16 +52,14 @@ let snakee;
                 case "left":
                     nextPosition[0]-=1;
                     break;
-                    case "right":
-                    nextPosition[0]+=1;
-
+                    case "up":
+                        nextPosition[1]+=1;
                         break;
-                        case "down":
-                     nextPosition[1]-=1;
-
+                        case "right":
+                            nextPosition[0]+=1;
                             break;
-                            case "up":
-                    nextPosition[1]+=1;
+                            case "down":
+                                nextPosition[1]-=1;
                             break;
                             default:
                                 throw("invalid direction");
@@ -75,13 +73,13 @@ let snakee;
          switch(this.direction){
             case "left":
                 break;
+                case "up":
+                allowedDirections=["up","down"];
+                break;
+                break;
                 case "right":
-                    allowedDirections=["up","down"];
-                    break;
+                    allowedDirections=["left","right"];
                     case "down":
-                        break;
-                        case "up":
-                            allowedDirections=["left","right"];
                         break;
                         default:
                             throw("Invalid Direction");
@@ -91,20 +89,24 @@ let snakee;
          }
         };
         document.onkeydown=function handleKeyDown(e){
-            let key=e.key;
+            let key=e.keyCode;
             let newDirection
             switch(key){
                 case 37:
                     newDirection="left";
+                    console.log("left");
                     break;
                 case 38:
-                    newDirection="right";
-                    break;
-                case 39:
-                    newDirection="down";
-                    break;
-                case 40:
                     newDirection="up";
+                    console.log("up");
+                    break;
+                    case 39:
+                        newDirection="right";
+                        console.log("right");
+                        break;
+                        case 40:
+                            newDirection="down";
+                            console.log("down");
                     break;
                     default:
                     return;
