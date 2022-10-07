@@ -108,7 +108,7 @@ let snakee;
                     default:
                         return;
             }
-        }
+        };
         snakee.setDirection(newDirection);
     }
 }
