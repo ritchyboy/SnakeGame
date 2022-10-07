@@ -72,7 +72,6 @@ let snakee;
         this.setDirection=function(newDirection)
         {
          let allowedDirections;
-         let newDirection;
          switch(this.direction){
             case "left":
                 break;
