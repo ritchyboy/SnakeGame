@@ -16,7 +16,7 @@ let snakee;
         ctx=canvas.getContext("2d");
         ctx.fillStyle="#ff0000";
         ctx.fillRect(30,30,100,50);
-        snakee=new Snake([[6,4],[5,4],[4,4]],right);
+        snakee=new Snake([[6,4],[5,4],[4,4]],"right");
         refreshCanvas();
     }
 
@@ -83,6 +83,8 @@ let snakee;
                         case "up":
                             allowedDirections=["left","right"];
                         break;
+                        default:
+                            throw("Invalid Direction");
          }
          if(allowedDirections.indexOf(newDirection)>-1){
             this.direction=newDirection;
@@ -90,7 +92,7 @@ let snakee;
         };
         document.onkeydown=function handleKeyDown(e){
             let key=e.key;
-            let newDirection;
+            let newDirection
             switch(key){
                 case 37:
                     newDirection="left";
@@ -105,9 +107,9 @@ let snakee;
                     newDirection="up";
                     break;
                     default:
-                        return;
+                    return;
             }
+            snakee.setDirection(newDirection);
         };
-        snakee.setDirection(newDirection);
     }
 }
