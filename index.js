@@ -4,7 +4,7 @@ let canvasWidth=900;
 let canvasHeight=600;
 let blockSize=30;
 let ctx;
-let delay=1000;
+let delay=500;
 let snakee;
     init();
     function init(){
@@ -74,17 +74,18 @@ let snakee;
             case "left":
                 break;
                 case "up":
-                allowedDirections=["up","down"];
-                break;
-                break;
-                case "right":
                     allowedDirections=["left","right"];
+                    break;
+                    case "right":
+                    allowedDirections=["up","down"];
+                    break;
                     case "down":
                         break;
                         default:
                             throw("Invalid Direction");
          }
-         if(allowedDirections.indexOf(newDirection)>-1){
+         if(allowedDirections.indexOf(newDirection)>-1)
+         {
             this.direction=newDirection;
          }
         };
@@ -97,16 +98,16 @@ let snakee;
                     console.log("left");
                     break;
                 case 38:
-                    newDirection="up";
-                    console.log("up");
+                    newDirection="down";
+                    console.log("down");
                     break;
                     case 39:
                         newDirection="right";
                         console.log("right");
                         break;
                         case 40:
-                            newDirection="down";
-                            console.log("down");
+                            newDirection="up";
+                            console.log("up");
                     break;
                     default:
                     return;
