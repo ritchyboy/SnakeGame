@@ -5,8 +5,6 @@ let canvasHeight=600;
 let blockSize=30;
 let ctx;
 let delay=1000;
-let xCoord=0;
-let yCoord=0;
 let snakee;
     init();
     function init(){
@@ -90,22 +88,22 @@ let snakee;
          if(allowedDirections.indexOf(newDirection)>-1){
             this.direction=newDirection;
          }
-        }
+        };
         document.onkeydown=function handleKeyDown(e){
             let key=e.key;
             let newDirection;
             switch(key){
                 case 37:
-                    newDirection="left"
+                    newDirection="left";
                     break;
                 case 38:
-                    newDirection="right"
+                    newDirection="right";
                     break;
                 case 39:
-                    newDirection="down"
+                    newDirection="down";
                     break;
                 case 40:
-                    newDirection="up"
+                    newDirection="up";
                     break;
                     default:
                         return;
