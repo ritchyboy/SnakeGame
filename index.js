@@ -4,7 +4,7 @@ let canvasWidth=900;
 let canvasHeight=600;
 let blockSize=30;
 let ctx;
-let delay=500;
+let delay=150;
 let widthInBlocks=canvasWidth/blockSize;
 let heightInBlocks=canvasHeight/blockSize;
 let snakee;
@@ -33,6 +33,10 @@ let applee;
         }
         else
         {
+            if(snakee.isEatingApple(applee))
+            {
+              //Snake eat the apple//
+            }
             snakee.draw();
             applee.draw();
             setTimeout(refreshCanvas,delay);
@@ -59,6 +63,10 @@ let applee;
           ctx.arc(x,y,radius,0,Math.PI*2,true);
           ctx.fill();
           ctx.restore();
+        }
+        this.setNewPosition=function()
+        {
+
         }
     }
     function Snake(body,direction){
@@ -146,6 +154,19 @@ let applee;
              }
           }
           return wallCollision||snakeCollision;
+        };
+        this.isEatingApple(appleToEat)
+        {
+            let head=this.body[0];
+            if(head[0]===appleToEat.position[0]&&head[1]===appleToEat.position[1])
+            {
+                 return true;
+            }
+            else
+            {
+                return false;
+            }
+          
         }
         document.onkeydown=function handleKeyDown(e){
             let key=e.keyCode;
