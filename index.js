@@ -27,9 +27,16 @@ let applee;
     function refreshCanvas(){
         ctx.clearRect(0,0,canvasWidth,canvasHeight);
         snakee.advance();
-        snakee.draw();
-        applee.draw();
-        setTimeout(refreshCanvas,delay);
+        if(snakee.checkCollision())
+        {
+           //Game Over
+        }
+        else
+        {
+            snakee.draw();
+            applee.draw();
+            setTimeout(refreshCanvas,delay);
+        }
     }
     function drawBlock(ctx,position){
      let x =position[0]*blockSize;
@@ -117,6 +124,28 @@ let applee;
         {
           let wallCollision=false;
           let snakeCollision=false;
+          let head=this.body[0];
+          let rest=this.body.slice(1);
+          let snakeX=head[0];
+          let snakeY=head[1];
+          let minX=0;
+          let minY=0;
+          let maxX=widthInBlocks-1;
+          let maxY=heightInBlocks-1;
+          let isNotBetweenHorizontalWalls=snakeX<minX||snakeX>maxX;
+          let isNotBetweenVerticalWalls=snakeY<minY||snakeY>maxY;
+          if(isNotBetweenHorizontalWalls||isNotBetweenVerticalWalls)
+          {
+               wallCollision=true;
+          }
+          for(let i=0;i<rest.length;i++)
+          {
+             if(snakeX===rest[i][0]&&snakeY===rest[i][1])
+             {
+               snakeCollision=true;
+             }
+          }
+          return wallCollision||snakeCollision;
         }
         document.onkeydown=function handleKeyDown(e){
             let key=e.keyCode;
