@@ -5,6 +5,8 @@ let canvasHeight=600;
 let blockSize=30;
 let ctx;
 let delay=500;
+let widthInBlocks=canvasWidth/blockSize;
+let heightInBlocks=canvasHeight/blockSize;
 let snakee;
 let applee;
     init();
