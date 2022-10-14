@@ -35,7 +35,7 @@ let applee;
         {
             if(snakee.isEatingApple(applee))
             {
-              //Snake eat the apple//
+              applee.setNewPosition();
             }
             snakee.draw();
             applee.draw();
@@ -66,8 +66,10 @@ let applee;
         }
         this.setNewPosition=function()
         {
-
-        }
+              let newX=Math.round(Math.random()*widthInBlocks-1);
+              let newY=Math.round(Math.random()*heightInBlocks-1);
+              this.position=[newX,newY];
+        };
     }
     function Snake(body,direction){
         this.body=body;
@@ -155,7 +157,7 @@ let applee;
           }
           return wallCollision||snakeCollision;
         };
-        this.isEatingApple(appleToEat)
+        this.isEatingApple=function(appleToEat)
         {
             let head=this.body[0];
             if(head[0]===appleToEat.position[0]&&head[1]===appleToEat.position[1])
@@ -167,7 +169,7 @@ let applee;
                 return false;
             }
           
-        }
+        };
         document.onkeydown=function handleKeyDown(e){
             let key=e.keyCode;
             let newDirection
