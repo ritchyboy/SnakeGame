@@ -11,11 +11,14 @@ let snakee;
 let applee;
 let score=0;
     init();
-    function init(){
+    function init()
+    {
        let canvas=document.createElement("canvas");
         canvas.width=canvasWidth;
         canvas.height=canvasHeight;
-        canvas.style.border="1px solid";
+        canvas.style.border="20px solid black";
+        canvas.style.margin="50px auto";
+        canvas.style.display="block";
         document.body.appendChild(canvas);
         ctx=canvas.getContext("2d");
         ctx.fillStyle="#ff0000";
