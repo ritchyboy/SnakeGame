@@ -9,6 +9,7 @@ let widthInBlocks=canvasWidth/blockSize;
 let heightInBlocks=canvasHeight/blockSize;
 let snakee;
 let applee;
+let score=0;
     init();
     function init(){
        let canvas=document.createElement("canvas");
@@ -19,6 +20,7 @@ let applee;
         ctx=canvas.getContext("2d");
         ctx.fillStyle="#ff0000";
         ctx.fillRect(30,30,100,50);
+        ctx.fillText(score,20,15);
         snakee=new Snake([[6,4],[5,4],[4,4]],"right");
         applee=new Apple([10,10]);
         refreshCanvas();
@@ -26,21 +28,42 @@ let applee;
 
     function refreshCanvas(){
         ctx.clearRect(0,0,canvasWidth,canvasHeight);
+        ctx.fillText(score,20,15);
         snakee.advance();
         if(snakee.checkCollision())
         {
-           //Game Over
+           gameOver();
         }
         else
         {
             if(snakee.isEatingApple(applee))
             {
-              applee.setNewPosition();
+               snakee.ateApple=true;
+                do
+                {
+                    score++;
+                    applee.setNewPosition();
+                }
+                while(applee.isOnSnake(snakee))
             }
             snakee.draw();
             applee.draw();
             setTimeout(refreshCanvas,delay);
         }
+    }
+    function gameOver()
+    {
+        ctx.save();
+        ctx.fillText("Game Over",300,300);
+        ctx.fillText("Appuyer sur espace pour rejouer",300,350);
+        ctx.restore();
+    }
+    function restart()
+    {
+        snakee=new Snake([[6,4],[5,4],[4,4]],"right");
+        applee=new Apple([10,10]);
+        score=0;
+        refreshCanvas();
     }
     function drawBlock(ctx,position){
      let x =position[0]*blockSize;
@@ -58,8 +81,8 @@ let applee;
           ctx.fillStyle="#33cc33";
           ctx.beginPath();
           let radius=blockSize/2;
-          let x=position[0]*blockSize+radius;
-          let y=position[1]*blockSize+radius;
+          let x=this.position[0]*blockSize+radius;
+          let y=this.position[1]*blockSize+radius;
           ctx.arc(x,y,radius,0,Math.PI*2,true);
           ctx.fill();
           ctx.restore();
@@ -70,10 +93,23 @@ let applee;
               let newY=Math.round(Math.random()*heightInBlocks-1);
               this.position=[newX,newY];
         };
+        this.isOnSnake=function(snakeToCheck)
+        {
+            let isOnSnake=false;
+            for(let i=0;i<snakeToCheck.body.length;i++)
+            {
+                if(this.position[0]===snakeToCheck.body[i][0]&&this.position[1]===snakeToCheck.body[i][1])
+                {
+                    isOnSnake=true;
+                }
+                return isOnSnake;
+            }
+        };
     }
     function Snake(body,direction){
         this.body=body;
         this.direction=direction;
+        this.ateApple=false;
         this.draw=function()
         {
             ctx.save();
@@ -103,7 +139,14 @@ let applee;
                                 throw("invalid direction");
             }
             this.body.unshift(nextPosition);
-            this.body.pop();
+            if(!this.ateApple)
+            {
+                this.body.pop();
+            }
+            else
+            {
+             this.ateApple=false;
+            }
         };
         this.setDirection=function(newDirection)
         {
@@ -190,6 +233,9 @@ let applee;
                             newDirection="up";
                             console.log("up");
                     break;
+                    case 32:
+                           restart();
+                           break;
                     default:
                     return;
             }
